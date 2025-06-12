@@ -4,6 +4,7 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from xgboost import XGBRegressor
+import numpy as np
 
 # 데이터 파일 경로
 DATA_FILE = os.path.join(os.path.dirname(__file__), '../data/cpu_power_data.csv')
@@ -28,7 +29,8 @@ def train_model():
 
     # 예측 및 평가
     y_pred = model.predict(X_test)
-    rmse = mean_squared_error(y_test, y_pred, squared=False)
+    mse = mean_squared_error(y_test, y_pred)
+    rmse = np.sqrt(mse)
     print(f"[RESULT] RMSE: {rmse:.2f}")
 
     # 모델 저장
